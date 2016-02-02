@@ -51,6 +51,8 @@ class VolumesClient(rest_client.RestClient):
         Available params: see http://developer.openstack.org/
                               api-ref-compute-v2.1.html#createVolume
         """
+        if 'availability_zone' not in kwargs and self.availability_zone:
+            kwargs['availability_zone'] = self.availability_zone
         post_body = json.dumps({'volume': kwargs})
         resp, body = self.post('os-volumes', post_body)
         body = json.loads(body)
