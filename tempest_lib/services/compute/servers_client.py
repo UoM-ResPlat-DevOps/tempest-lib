@@ -43,6 +43,8 @@ class ServersClient(rest_client.RestClient):
         :param scheduler_hints: The name is changed to os:scheduler_hints and
         the parameter is set in the same level as the parameter 'server'.
         """
+        if 'availability_zone' not in kwargs and self.availability_zone:
+            kwargs['availability_zone'] = self.availability_zone
         body = copy.deepcopy(kwargs)
         if body.get('disk_config'):
             body['OS-DCF:diskConfig'] = body.pop('disk_config')
